@@ -32,6 +32,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - uses: actions/setup-node@v3
         with:
           node-version: lts/*
@@ -45,6 +47,9 @@ jobs:
           #
           # You may remove this line if you want to manage the configuration yourself.
           static_site_generator: next
+      
+      - run: |
+          pnpm install
 
       - name: Build with Next.js 🏗️
         run: pnpm build
