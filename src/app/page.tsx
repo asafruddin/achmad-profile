@@ -1,4 +1,4 @@
-export default function Home() {
+export default function Page() {
   return (
     <main className="flex min-h-screen flex-col items-center font-mono">
       <div className="container items-start justify-center flex flex-col gap-5 h-screen w-screen p-10">
