@@ -1,10 +1,9 @@
 import Particles from "@/components/background/particle-background";
 import Magnet from "@/components/container/magnet";
-import BlurText from "@/components/text/BluredText";
 
 export default function Page() {
   return (
-    <main className="relative w-full h-screen">
+    <main className="relative w-screen h-screen font-mono">
       <Particles
         particleColors={["#ffffff", "#ffffff"]}
         particleCount={3000}
@@ -16,42 +15,32 @@ export default function Page() {
         disableRotation={false}
       />
 
-      <div className="flex-col items-center font-mono flex">
-        <div className="absolute inset-0 container items-start justify-center flex flex-col gap-5 h-screen w-screen p-10">
+      <div className="absolute inset-0 p-16">
+        <div className="container items-start justify-center flex flex-col size-full gap-5">
+          <h3 className="m-0 text-3xl">Hi there, I am</h3>
+
+          <h1 className="m-0 text-8xl font-bold text-emerald-400">
+            Achmad Safruddin
+          </h1>
+
           <div>
-            <BlurText
-              text="Hi there, I am"
-              delay={550}
-              animateBy="words"
-              direction="top"
-              className="text-3xl"
-            />
+            <h3 className="m-0 text-lg font-normal text-gray-400">
+              <span className=" font-bold text-white">Software Engineer, </span>
+              Developing <span className="text-amber-200 font-bold">
+                web
+              </span>{" "}
+              and
+              <span className="text-amber-200 font-bold"> mobile</span>{" "}
+              applications.
+            </h3>
 
-            <BlurText
-              text="Achmad Safruddin"
-              delay={600}
-              animateBy="words"
-              direction="top"
-              className="text-8xl font-bold text-emerald-400"
-            />
-
-            <div className="text-lg font-normal text-gray-400">
-              <BlurText
-                text="Software Engineer, Developing web and mobile applications."
-                delay={200}
-                animateBy="words"
-                direction="top"
-                className="font-bold text-white"
-              />
-            </div>
-
-            <BlurText
-              text="Currently i am working with Next.js, Flutter, and React Native for the tech stack."
-              delay={200}
-              animateBy="words"
-              direction="top"
-              className="text-lg font-normal text-gray-400"
-            />
+            <h3 className="m-0 text-lg font-normal text-gray-400">
+              Currently i am working with{" "}
+              <span className="text-amber-200">
+                Next.js, Flutter, and React Native{" "}
+              </span>
+              for the tech stack.
+            </h3>
           </div>
 
           <Magnet padding={250} magnetStrength={5}>
