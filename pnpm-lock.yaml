@@ -12,6 +12,9 @@ dependencies:
   '@react-spring/web':
     specifier: ^9.7.5
     version: 9.7.5(react-dom@19.0.0)(react@19.0.0)
+  lucide-react:
+    specifier: ^0.560.0
+    version: 0.560.0(react@19.0.0)
   next:
     specifier: 15.2.1
     version: 15.2.1(react-dom@19.0.0)(react@19.0.0)
@@ -2656,6 +2659,14 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /lucide-react@0.560.0(react@19.0.0):
+    resolution: {integrity: sha512-NwKoUA/aBShsdL8WE5lukV2F/tjHzQRlonQs7fkNGI1sCT0Ay4a9Ap3ST2clUUkcY+9eQ0pBe2hybTQd2fmyDA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    dependencies:
+      react: 19.0.0
+    dev: false
 
   /math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
