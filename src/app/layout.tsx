@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Achmad Safruddin",
-  description: "Achmad Safruddin profile | Front End Developer",
+  title: "Achmad Safruddin | Software Engineer",
+  description: "Portfolio of Achmad Safruddin, a Frontend and Mobile Engineer specializing in Next.js, React Native, and Flutter.",
 };
 
 export default function RootLayout({
