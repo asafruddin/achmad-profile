@@ -1,7 +1,16 @@
+'use client';
 
 import Magnet from "@/components/container/magnet";
 
 export default function Hero() {
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = '/cv/achmad-mobile.pdf';
+    link.download = 'Achmad_Safruddin_CV.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <div id="home" className="relative h-screen w-full flex items-center justify-center p-8 z-10">
         <div className="container mx-auto flex flex-col gap-6 items-start justify-center max-w-4xl">
@@ -28,13 +37,12 @@ export default function Hero() {
 
           <div className="pt-8">
             <Magnet padding={50} magnetStrength={3}>
-              <a 
-                href="/cv.pdf" 
-                target="_blank"
-                className="bg-emerald-500 hover:bg-emerald-600 text-black text-lg font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 inline-block"
+              <button 
+                onClick={handleDownload}
+                className="bg-emerald-500 hover:bg-emerald-600 text-black text-lg font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 inline-block cursor-pointer"
               >
                 Download CV
-              </a>
+              </button>
             </Magnet>
           </div>
         </div>

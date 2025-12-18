@@ -49,8 +49,8 @@ export default function Navbar() {
               </Link>
             ))}
             <a
-              href="/cv.pdf"
-              target="_blank"
+              href="/cv/achmad-mobile.pdf"
+              download="Achmad_Safruddin_CV.pdf"
               className="text-sm font-bold bg-white text-black px-4 py-2 rounded-full hover:bg-emerald-400 transition-colors"
             >
               Resume
@@ -86,8 +86,8 @@ export default function Navbar() {
             </Link>
           ))}
           <a
-             href="/cv.pdf"
-             target="_blank"
+             href="/cv/achmad-mobile.pdf"
+             download="Achmad_Safruddin_CV.pdf"
              className="text-lg font-bold text-center bg-emerald-500 text-black py-3 rounded-lg mt-4 hover:bg-emerald-400 transition-colors"
           >
             Download Resume
