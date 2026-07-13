@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ExternalLink, Github, Star } from "lucide-react";
+import { ExternalLink, Star } from "lucide-react";
+import { GitHubIcon } from "@/components/icons/SocialIcons";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
@@ -110,7 +111,7 @@ export default function Works() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-sm text-neutral-400 hover:text-accent-light transition-colors"
                     >
-                      <Github className="w-4 h-4" />
+                      <GitHubIcon className="w-4 h-4" />
                       Source
                     </a>
                   </div>
@@ -123,7 +124,7 @@ export default function Works() {
         <Reveal delay={200}>
           <div className="mt-16 pt-12 border-t border-neutral-800">
             <h3 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
-              <Github className="w-5 h-5 text-accent" />
+              <GitHubIcon className="w-5 h-5 text-accent" />
               More on GitHub
             </h3>
 

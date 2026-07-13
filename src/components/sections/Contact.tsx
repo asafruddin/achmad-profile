@@ -1,4 +1,5 @@
-import { Mail, Github, Linkedin, ArrowUpRight } from "lucide-react";
+import { Mail, ArrowUpRight } from "lucide-react";
+import { GitHubIcon, LinkedInIcon } from "@/components/icons/SocialIcons";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Reveal from "@/components/ui/Reveal";
 import { profile } from "@/data/profile";
@@ -15,14 +16,14 @@ const contactMethods = [
     label: "GitHub",
     value: "asafruddin",
     href: profile.github,
-    icon: Github,
+    icon: GitHubIcon,
     description: "See my code & contributions",
   },
   {
     label: "LinkedIn",
     value: "Achmad Safruddin",
     href: profile.linkedin,
-    icon: Linkedin,
+    icon: LinkedInIcon,
     description: "Connect professionally",
   },
 ];
