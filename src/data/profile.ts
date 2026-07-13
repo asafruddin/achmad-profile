@@ -13,9 +13,9 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/achmad-safruddin-208b88152/",
   stack: ["Next.js", "TypeScript", "React", "Node.js", "Flutter", "PostgreSQL"],
   stats: [
-    { label: "Years Experience", value: "5+" },
-    { label: "Projects Built", value: "20+" },
-    { label: "Technologies", value: "15+" },
+    { label: "Years Experience", value: 5, suffix: "+" },
+    { label: "Projects Built", value: 20, suffix: "+" },
+    { label: "Technologies", value: 15, suffix: "+" },
   ],
   values: [
     "Fullstack builder — comfortable from database to deployment",

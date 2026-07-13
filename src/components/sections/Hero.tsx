@@ -2,6 +2,7 @@
 
 import Magnet from "@/components/container/magnet";
 import Button from "@/components/ui/Button";
+import CountUp from "@/components/ui/CountUp";
 import Reveal from "@/components/ui/Reveal";
 import { profile } from "@/data/profile";
 import { ArrowDown } from "lucide-react";
@@ -58,7 +59,7 @@ export default function Hero() {
                 {profile.stats.map((stat) => (
                   <div key={stat.label}>
                     <p className="font-display text-2xl md:text-3xl font-bold text-white">
-                      {stat.value}
+                      <CountUp value={stat.value} suffix={stat.suffix} />
                     </p>
                     <p className="text-sm text-neutral-500 mt-1">{stat.label}</p>
                   </div>
