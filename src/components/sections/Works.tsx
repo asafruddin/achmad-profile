@@ -1,17 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Star, GitFork, ExternalLink, Code2 } from "lucide-react";
+import { ExternalLink, Github, Star } from "lucide-react";
+import SectionHeader from "@/components/ui/SectionHeader";
+import Badge from "@/components/ui/Badge";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
+import Reveal from "@/components/ui/Reveal";
+import { featuredProjects, GITHUB_USERNAME } from "@/data/projects";
+import { profile } from "@/data/profile";
 
 type Repo = {
   id: number;
   name: string;
-  description: string;
+  description: string | null;
   html_url: string;
   stargazers_count: number;
-  fork: boolean;
-  language: string;
-  updated_at: string;
+  language: string | null;
 };
 
 export default function Works() {
@@ -19,82 +24,152 @@ export default function Works() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://api.github.com/users/asafruddin/repos?sort=updated&per_page=100")
+    fetch(
+      `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
+    )
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
-          // Filter out forks and profile repo, take top 6 by updated/stars
+          const featuredRepoNames = new Set(
+            featuredProjects.map((p) => p.githubUrl.split("/").pop())
+          );
           const filtered = data
-            .filter((repo) => !repo.fork && repo.name !== "asafruddin")
-            .sort((a, b) => b.stargazers_count - a.stargazers_count) // Sort by stars
-            .slice(0, 6);
+            .filter(
+              (repo: Repo & { fork: boolean }) =>
+                !repo.fork &&
+                repo.name !== GITHUB_USERNAME &&
+                !featuredRepoNames.has(repo.name)
+            )
+            .sort(
+              (a: Repo, b: Repo) => b.stargazers_count - a.stargazers_count
+            )
+            .slice(0, 3);
           setRepos(filtered);
         }
         setLoading(false);
       })
-      .catch((err) => {
-        console.error("Failed to fetch repos", err);
-        setLoading(false);
-      });
+      .catch(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return (
-      <div className="w-full py-20 flex justify-center items-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
-      </div>
-    );
-  }
-
   return (
-    <section id="works" className="w-full py-24 px-8 relative z-10">
+    <section id="works" className="section-padding relative z-10">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl font-bold text-white mb-12 flex items-center gap-3">
-          <Code2 className="text-emerald-500" />
-          Selected Works
-        </h2>
+        <Reveal>
+          <SectionHeader
+            eyebrow="Works"
+            title="Featured projects"
+            subtitle="A selection of fullstack applications and experiments — from web platforms to mobile apps."
+          />
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {repos.map((repo) => (
-            <a
-              key={repo.id}
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-xl p-6 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-1 block"
-            >
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-neutral-100 group-hover:text-emerald-400 transition-colors">
-                  {repo.name}
-                </h3>
-                <ExternalLink className="w-5 h-5 text-neutral-500 group-hover:text-emerald-400 transition-colors" />
-              </div>
-
-              <p className="text-neutral-400 text-sm mb-6 line-clamp-3 h-14">
-                {repo.description || "No description available."}
-              </p>
-
-              <div className="flex items-center justify-between text-xs text-neutral-500">
-                <div className="flex items-center gap-4">
-                  {repo.language && (
-                    <span className="flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                      {repo.language}
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1">
-                    <Star className="w-3 h-3" />
-                    {repo.stargazers_count}
+          {featuredProjects.map((project, index) => (
+            <Reveal key={project.id} delay={index * 80}>
+              <Card hover className="h-full flex flex-col p-0 overflow-hidden group">
+                <div
+                  className={`h-40 bg-gradient-to-br ${project.gradient} flex items-center justify-center border-b border-neutral-800`}
+                >
+                  <span className="font-display text-4xl font-black text-white/20 group-hover:text-white/30 transition-colors">
+                    {project.title
+                      .split(" ")
+                      .map((w) => w[0])
+                      .join("")
+                      .slice(0, 2)}
                   </span>
                 </div>
-              </div>
-            </a>
+
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-display text-xl font-bold text-white group-hover:text-accent-light transition-colors mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-neutral-400 text-sm mb-4 flex-1 line-clamp-3">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {project.tech.map((tech) => (
+                      <Badge key={tech}>{tech}</Badge>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-3 mt-auto">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm text-accent-light hover:text-white transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </a>
+                    )}
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm text-neutral-400 hover:text-accent-light transition-colors"
+                    >
+                      <Github className="w-4 h-4" />
+                      Source
+                    </a>
+                  </div>
+                </div>
+              </Card>
+            </Reveal>
           ))}
         </div>
-        
-        <div className="mt-12 text-center">
-            <a href="https://github.com/asafruddin" target="_blank" className="text-emerald-400 hover:text-emerald-300 hover:underline">View all repositories on GitHub -&gt;</a>
-        </div>
+
+        <Reveal delay={200}>
+          <div className="mt-16 pt-12 border-t border-neutral-800">
+            <h3 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
+              <Github className="w-5 h-5 text-accent" />
+              More on GitHub
+            </h3>
+
+            {loading ? (
+              <div className="flex justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {repos.map((repo) => (
+                  <a
+                    key={repo.id}
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-card p-4 hover:border-accent/50 transition-all duration-300 hover:-translate-y-0.5 group"
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="font-medium text-neutral-200 group-hover:text-accent-light transition-colors">
+                        {repo.name}
+                      </h4>
+                      <ExternalLink className="w-4 h-4 text-neutral-600 group-hover:text-accent-light" />
+                    </div>
+                    <p className="text-xs text-neutral-500 line-clamp-2 mb-3">
+                      {repo.description || "No description"}
+                    </p>
+                    <div className="flex items-center gap-3 text-xs text-neutral-600">
+                      {repo.language && <span>{repo.language}</span>}
+                      <span className="flex items-center gap-1">
+                        <Star className="w-3 h-3" />
+                        {repo.stargazers_count}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            <div className="mt-8 text-center">
+              <Button href={profile.github} variant="secondary" target="_blank" rel="noopener noreferrer">
+                View all repositories
+                <ExternalLink className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

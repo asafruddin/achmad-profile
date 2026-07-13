@@ -1,46 +1,77 @@
+import { Mail, Github, Linkedin, ArrowUpRight } from "lucide-react";
+import SectionHeader from "@/components/ui/SectionHeader";
+import Reveal from "@/components/ui/Reveal";
+import { profile } from "@/data/profile";
 
-import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+const contactMethods = [
+  {
+    label: "Email",
+    value: profile.email,
+    href: `mailto:${profile.email}`,
+    icon: Mail,
+    description: "Best for project inquiries",
+  },
+  {
+    label: "GitHub",
+    value: "asafruddin",
+    href: profile.github,
+    icon: Github,
+    description: "See my code & contributions",
+  },
+  {
+    label: "LinkedIn",
+    value: "Achmad Safruddin",
+    href: profile.linkedin,
+    icon: Linkedin,
+    description: "Connect professionally",
+  },
+];
 
 export default function Contact() {
   return (
-    <section id="contact" className="w-full py-24 px-8 relative z-10 border-t border-neutral-900 bg-black/20">
-      <div className="container mx-auto max-w-4xl text-center">
-        <h2 className="text-4xl font-bold text-white mb-6">Let&apos;s Connect</h2>
-        <p className="text-lg text-neutral-400 mb-10 max-w-xl mx-auto">
-          Currently open to new opportunities and collaborations. 
-          Feel free to reach out if you want to build something amazing together.
-        </p>
+    <section id="contact" className="section-padding relative z-10 bg-neutral-950/50">
+      <div className="container mx-auto max-w-6xl">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <Reveal>
+            <SectionHeader
+              eyebrow="Contact"
+              title="Let's build something great"
+              subtitle="Currently open to new opportunities and collaborations. Whether you have a project in mind or just want to connect — I'd love to hear from you."
+            />
+          </Reveal>
 
-        <div className="flex flex-wrap justify-center gap-6">
-          <a
-            href="mailto:achmad.safrudin@gmail.com"
-            className="flex items-center gap-2 bg-neutral-900 border border-neutral-800 text-white px-6 py-3 rounded-lg hover:border-emerald-500 hover:text-emerald-400 transition-all"
-          >
-            <Mail className="w-5 h-5" />
-            <span>Email Me</span>
-          </a>
-          
-          <a
-            href="https://github.com/asafruddin"
-            target="_blank"
-            className="flex items-center gap-2 bg-neutral-900 border border-neutral-800 text-white px-6 py-3 rounded-lg hover:border-emerald-500 hover:text-emerald-400 transition-all"
-          >
-            <Github className="w-5 h-5" />
-            <span>GitHub</span>
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/achmad-safruddin-208b88152/"
-            target="_blank"
-            className="flex items-center gap-2 bg-neutral-900 border border-neutral-800 text-white px-6 py-3 rounded-lg hover:border-emerald-500 hover:text-emerald-400 transition-all"
-          >
-            <Linkedin className="w-5 h-5" />
-            <span>LinkedIn</span>
-          </a>
-        </div>
-        
-        <div className="mt-20 text-neutral-600 text-sm">
-            © {new Date().getFullYear()} Achmad Safruddin. All rights reserved.
+          <Reveal delay={150}>
+            <div className="space-y-4">
+              {contactMethods.map((method) => {
+                const Icon = method.icon;
+                return (
+                  <a
+                    key={method.label}
+                    href={method.href}
+                    target={method.href.startsWith("mailto") ? undefined : "_blank"}
+                    rel={
+                      method.href.startsWith("mailto")
+                        ? undefined
+                        : "noopener noreferrer"
+                    }
+                    className="flex items-center gap-4 p-5 glass-card hover:border-accent/50 transition-all duration-300 group"
+                  >
+                    <div className="p-3 rounded-lg bg-accent/10 text-accent-light group-hover:bg-accent/20 transition-colors">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-neutral-500">{method.label}</p>
+                      <p className="text-white font-medium truncate">{method.value}</p>
+                      <p className="text-xs text-neutral-600 mt-0.5">
+                        {method.description}
+                      </p>
+                    </div>
+                    <ArrowUpRight className="w-5 h-5 text-neutral-600 group-hover:text-accent-light transition-colors shrink-0" />
+                  </a>
+                );
+              })}
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
